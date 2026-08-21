@@ -253,7 +253,7 @@ def training_score(request):
         # Create Document certificate link
         Document.objects.get_or_create(
             user=request.user,
-            name=f"Raise Labs Training Certificate - {enrollment.course.title}",
+            name=f"RageLabs Training Certificate - {enrollment.course.title}",
             defaults={
                 'doc_type': 'CERTIFICATE',
                 'file_url': 'javascript:alert("Viewing certificate PDF link")'

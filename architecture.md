@@ -1,6 +1,6 @@
-# Raise Labs Learning - Architecture Documentation
+# RageLabs Learning - Architecture Documentation
 
-This document outlines the technical architecture of the **Raise Labs Learning** platform, transition from static frontend files to a robust Python + Django database-backed web application.
+This document outlines the technical architecture of the **RageLabs Learning** platform, transition from static frontend files to a robust Python + Django database-backed web application.
 
 ---
 
@@ -9,7 +9,7 @@ This document outlines the technical architecture of the **Raise Labs Learning**
 The codebase is organized as a modular Django project:
 
 ```text
-Raise Labs Learning
+RageLabs Learning
 │
 ├── manage.py                 # Django entrypoint script
 ├── db.sqlite3                # Persistent SQLite database

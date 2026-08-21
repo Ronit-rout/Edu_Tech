@@ -6,7 +6,7 @@
     <!-- Brand -->
     <a href="{% url 'homepage' %}" class="hover:opacity-80 transition-opacity">
         <div class="mb-stack-lg px-2 pt-4">
-            <h1 class="font-headline-md text-headline-md font-bold text-on-primary">Raise Labs Staff</h1>
+            <h1 class="font-headline-md text-headline-md font-bold text-on-primary">RageLabs Staff</h1>
             <p class="font-label-sm text-label-sm text-inverse-primary mt-1">
                 {% if user.role == 'ADMIN' %}Admin Console{% elif user.role == 'EDUCATOR' %}Educator Studio{% else %}HR Intelligence{% endif %}
             </p>

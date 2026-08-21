@@ -1,6 +1,6 @@
-# Raise Labs Learning Platform
+# RageLabs Learning Platform
 
-Welcome to **Raise Labs Learning**, a professional, fully connected skill-verification and learning platform built using **Python + Django** on the backend and preserving premium **Warm Minimalist** design guidelines on the frontend.
+Welcome to **RageLabs Learning**, a professional, fully connected skill-verification and learning platform built using **Python + Django** on the backend and preserving premium **Warm Minimalist** design guidelines on the frontend.
 
 ---
 
@@ -52,11 +52,11 @@ Welcome to **Raise Labs Learning**, a professional, fully connected skill-verifi
 
 ## 3. Demo Accounts Credentials
 
-The seeding script generates these pre-configured user profiles with password **`raiselabs123`**:
+The seeding script generates these pre-configured user profiles with password **`ragelabs123`**:
 
 | Role | Username | Email | Access |
 | :--- | :--- | :--- | :--- |
-| **Student** | `student` | `student@raiselabs.com` | Dashboard, Learning Hub, Checkout, Training |
-| **Educator** | `educator` | `educator@raiselabs.com` | Program Builder, submission reviews |
-| **HR / Employer** | `hr` | `hr@raiselabs.com` | Talent Registry, Candidate profiles |
-| **Admin** | `admin` | `admin@raiselabs.com` | Full Operational Command, Queue metrics |
+| **Student** | `student` | `student@ragelabs.com` | Dashboard, Learning Hub, Checkout, Training |
+| **Educator** | `educator` | `educator@ragelabs.com` | Program Builder, submission reviews |
+| **HR / Employer** | `hr` | `hr@ragelabs.com` | Talent Registry, Candidate profiles |
+| **Admin** | `admin` | `admin@ragelabs.com` | Full Operational Command, Queue metrics |

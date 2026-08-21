@@ -5,7 +5,7 @@
 <header class="w-full top-0 sticky z-50 bg-surface-bright/90 backdrop-blur shell-shadow hidden md:block">
     <div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto">
         <div class="flex items-center gap-stack-lg">
-            <a class="font-headline-md text-headline-md font-extrabold text-primary tracking-tight" href="{% url 'homepage' %}">Raise Labs Learning</a>
+            <a class="font-headline-md text-headline-md font-extrabold text-primary tracking-tight" href="{% url 'homepage' %}">RageLabs Learning</a>
             <nav class="hidden lg:flex gap-stack-lg ml-8">
                 <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors cursor-pointer active:opacity-80" href="{% url 'courses_catalog' %}">Marketplace</a>
                 {% if user.is_authenticated %}
@@ -38,14 +38,14 @@
 <!-- Footer -->
 <footer class="w-full px-margin-mobile md:px-margin-desktop py-12 border-t border-outline-variant/30 bg-surface-bright hidden md:block mt-auto">
     <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="font-headline-md text-headline-md font-bold text-primary">Raise Labs Learning</div>
+        <div class="font-headline-md text-headline-md font-bold text-primary">RageLabs Learning</div>
         <nav class="flex gap-8">
             <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{% url 'about_us' %}">About</a>
             <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{% url 'about_us' %}">Institutions</a>
             <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{% url 'about_us' %}">Privacy</a>
             <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{% url 'about_us' %}">Terms</a>
         </nav>
-        <div class="font-label-sm text-label-sm text-outline">© {% now "Y" %} Raise Labs. All rights reserved.</div>
+        <div class="font-label-sm text-label-sm text-outline">© {% now "Y" %} RageLabs. All rights reserved.</div>
     </div>
 </footer>
 

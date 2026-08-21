@@ -1,5 +1,5 @@
 """
-Database Seeding Script for Raise Labs Learning Demo.
+Database Seeding Script for RageLabs Learning Demo.
 Run this script using `python seed.py` to set up all standard roles, courses, and modules.
 """
 
@@ -21,41 +21,49 @@ def seed_database():
     # 1. Create Users
     admin_user, created = User.objects.get_or_create(
         username='admin',
-        email='admin@raiselabs.com',
-        defaults={'role': 'ADMIN', 'is_staff': True, 'is_superuser': True}
+        defaults={'email': 'admin@ragelabs.com', 'role': 'ADMIN', 'is_staff': True, 'is_superuser': True}
     )
-    if created or admin_user.check_password('raiselabs123') is False:
-        admin_user.set_password('raiselabs123')
+    if not created:
+        admin_user.email = 'admin@ragelabs.com'
+        admin_user.save()
+    if created or admin_user.check_password('ragelabs123') is False:
+        admin_user.set_password('ragelabs123')
         admin_user.save()
         print("  Admin user created/updated.")
 
     educator_user, created = User.objects.get_or_create(
         username='educator',
-        email='educator@raiselabs.com',
-        defaults={'role': 'EDUCATOR'}
+        defaults={'email': 'educator@ragelabs.com', 'role': 'EDUCATOR'}
     )
-    if created or educator_user.check_password('raiselabs123') is False:
-        educator_user.set_password('raiselabs123')
+    if not created:
+        educator_user.email = 'educator@ragelabs.com'
+        educator_user.save()
+    if created or educator_user.check_password('ragelabs123') is False:
+        educator_user.set_password('ragelabs123')
         educator_user.save()
         print("  Educator user created/updated.")
 
     hr_user, created = User.objects.get_or_create(
         username='hr',
-        email='hr@raiselabs.com',
-        defaults={'role': 'HR'}
+        defaults={'email': 'hr@ragelabs.com', 'role': 'HR'}
     )
-    if created or hr_user.check_password('raiselabs123') is False:
-        hr_user.set_password('raiselabs123')
+    if not created:
+        hr_user.email = 'hr@ragelabs.com'
+        hr_user.save()
+    if created or hr_user.check_password('ragelabs123') is False:
+        hr_user.set_password('ragelabs123')
         hr_user.save()
         print("  HR user created/updated.")
 
     student_user, created = User.objects.get_or_create(
         username='student',
-        email='student@raiselabs.com',
-        defaults={'role': 'STUDENT'}
+        defaults={'email': 'student@ragelabs.com', 'role': 'STUDENT'}
     )
-    if created or student_user.check_password('raiselabs123') is False:
-        student_user.set_password('raiselabs123')
+    if not created:
+        student_user.email = 'student@ragelabs.com'
+        student_user.save()
+    if created or student_user.check_password('ragelabs123') is False:
+        student_user.set_password('ragelabs123')
         student_user.save()
         print("  Student user created/updated.")
 

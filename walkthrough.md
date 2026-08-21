@@ -1,6 +1,6 @@
-# Raise Labs Learning - Platform Transition Walkthrough
+# RageLabs Learning - Platform Transition Walkthrough
 
-All tasks required to rebuild and transition the static platform to a professional, database-driven **Python + Django** application called **Raise Labs Learning** have been successfully executed and verified.
+All tasks required to rebuild and transition the static platform to a professional, database-driven **Python + Django** application called **RageLabs Learning** have been successfully executed and verified.
 
 ---
 
@@ -48,10 +48,10 @@ graph TD
    - The server is running locally on port `8000` via background task `task-438`.
    - Access the landing page: [http://localhost:8000/](http://localhost:8000/)
 2. **Branding Inspection**:
-   - All references to "Stitch" or other placeholders are renamed to **Raise Labs Learning** across titles, headers, navigation items, and dashboards.
+   - All references to "Stitch" or other placeholders are renamed to **RageLabs Learning** across titles, headers, navigation items, and dashboards.
 3. **Sign In and Authentication**:
    - Navigate to the login page: [http://localhost:8000/login/](http://localhost:8000/login/)
-   - Log in with pre-seeded student account (Username: `student`, Password: `raiselabs123`).
+   - Log in with pre-seeded student account (Username: `student`, Password: `ragelabs123`).
    - View the dynamic learning journey stepper on your dashboard showing enrollment stages.
 4. **Marketplace & Enrollment**:
    - Access the Catalog: [http://localhost:8000/marketplace/](http://localhost:8000/marketplace/)

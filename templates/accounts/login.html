@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Sign In - Raise Labs Learning{% endblock %}
+{% block title %}Sign In - RageLabs Learning{% endblock %}
 
 {% block body %}
 <div class="bg-background min-h-screen flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop antialiased">
@@ -20,7 +20,7 @@
         <!-- Header Section -->
         <header class="flex flex-col gap-stack-sm items-center text-center">
             <div class="font-headline-lg text-headline-lg text-primary tracking-tight mb-2">
-                Raise Labs Learning
+                RageLabs Learning
             </div>
             <h1 class="font-headline-md text-headline-md text-on-surface">
                 Internal Portal
@@ -50,7 +50,7 @@
         </form>
 
         <div class="text-center text-sm">
-            <span class="text-on-surface-variant">New to Raise Labs?</span>
+            <span class="text-on-surface-variant">New to RageLabs?</span>
             <a href="{% url 'signup' %}" class="text-primary font-semibold hover:underline">Create an Account</a>
         </div>
 
@@ -84,7 +84,7 @@
 <script>
     function quickLogin(username) {
         document.getElementById('username').value = username;
-        document.getElementById('password').value = 'raiselabs123';
+        document.getElementById('password').value = 'ragelabs123';
         document.querySelector('form').submit();
     }
 </script>

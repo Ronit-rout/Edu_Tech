@@ -14,7 +14,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Registration successful! Welcome to Raise Labs Learning.")
+            messages.success(request, "Registration successful! Welcome to RageLabs Learning.")
             return redirect('dashboard')
         else:
             messages.error(request, "Registration failed. Please correct the errors below.")
