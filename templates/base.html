@@ -165,7 +165,36 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-surface-bright text-on-surface antialiased min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container">
+    <!-- Top-aligned smooth page loader bar -->
+    <div id="page-loader" class="fixed top-0 left-0 h-1 bg-[#ffe16d] z-50 transition-all duration-300 w-0" style="width: 0%; opacity: 1;"></div>
+
     {% block body %}{% endblock %}
+
+    <script>
+        // Smooth transition page-loader animation
+        window.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.style.width = '100%';
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.width = '0%';
+                    }, 300);
+                }, 300);
+            }
+        });
+        window.addEventListener('beforeunload', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.style.opacity = '1';
+                loader.style.width = '0%';
+                setTimeout(() => {
+                    loader.style.width = '80%';
+                }, 10);
+            }
+        });
+    </script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

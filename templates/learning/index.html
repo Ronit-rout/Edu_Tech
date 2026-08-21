@@ -26,9 +26,10 @@
         </div>
     </div>
     <!-- Hero Visual -->
-    <div class="w-full lg:w-1/2 relative mt-12 lg:mt-0">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-secondary-container/30 rounded-full blur-3xl -z-10"></div>
-        <div class="relative w-full max-w-md mx-auto card-level-2 rounded-2xl p-6 rotate-1 hover:rotate-0 transition-transform duration-500">
+    <div class="w-full lg:w-1/2 relative mt-12 lg:mt-0 min-h-[350px] flex items-center justify-center">
+        <canvas id="skills-network-canvas" class="absolute inset-0 w-full h-full -z-10"></canvas>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-secondary-container/20 rounded-full blur-3xl -z-20"></div>
+        <div class="relative w-full max-w-md mx-auto card-level-2 rounded-2xl p-6 rotate-1 hover:rotate-0 transition-transform duration-500 shadow-xl border border-outline-variant/40">
             <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
@@ -222,4 +223,93 @@
         </button>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Canvas connected node network animation ("connecting sticks/evidence links")
+    (function() {
+        const canvas = document.getElementById('skills-network-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = canvas.offsetWidth;
+        let height = canvas.height = canvas.offsetHeight;
+
+        const particles = [];
+        const maxParticles = 35;
+        const connectionDist = 110;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2 + 1.5;
+                this.color = Math.random() > 0.45 ? '#0a1a3b' : '#ffe16d';
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Update & Draw
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+
+            // Draw connecting lines ("sticks")
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectionDist) {
+                        const alpha = (1 - (dist / connectionDist)) * 0.18;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(10, 26, 59, ${alpha})`;
+                        ctx.lineWidth = 0.9;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            if (canvas) {
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            }
+        });
+
+        init();
+        animate();
+    })();
+</script>
 {% endblock %}
