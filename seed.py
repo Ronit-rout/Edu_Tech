@@ -6,7 +6,7 @@ Run this script using `python seed.py` to set up all standard roles, courses, an
 import os
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'raise_labs.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rage_labs.settings')
 django.setup()
 
 from django.contrib.auth import get_user_model

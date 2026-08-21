@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'raise_labs.urls'
+ROOT_URLCONF = 'rage_labs.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'raise_labs.wsgi.application'
+WSGI_APPLICATION = 'rage_labs.wsgi.application'
 
 
 # Database
