@@ -1,0 +1,61 @@
+{% extends 'base_staff.html' %}
+
+{% block title %}Student 360 Profile - Raise Labs Admin{% endblock %}
+
+{% block content %}
+<header class="mb-8">
+    <span class="text-xs text-on-surface-variant uppercase tracking-wider">Student Registry</span>
+    <h2 class="font-display-lg-mobile md:font-display-lg text-primary mt-1">Student 360° Profile</h2>
+</header>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    <!-- Left Column: Details -->
+    <div class="lg:col-span-8 flex flex-col gap-6">
+        {% if student %}
+        <div class="card-level-1 p-6 rounded-xl">
+            <h3 class="font-headline-md text-primary mb-4">Basic Information</h3>
+            <div class="space-y-3 text-sm text-on-surface-variant">
+                <div><span class="font-semibold text-primary">Username:</span> {{ student.username }}</div>
+                <div><span class="font-semibold text-primary">Name:</span> {{ student.profile.name }}</div>
+                <div><span class="font-semibold text-primary">Email:</span> {{ student.email }}</div>
+                <div><span class="font-semibold text-primary">Date Joined:</span> {{ student.date_joined|date:"M d, Y" }}</div>
+            </div>
+        </div>
+
+        <div class="card-level-1 p-6 rounded-xl">
+            <h3 class="font-headline-md text-primary mb-4">Active Program Enrollments</h3>
+            {% if enrollments %}
+            <div class="space-y-4">
+                {% for enrollment in enrollments %}
+                <div class="border-b border-outline-variant/30 pb-3 last:border-0 last:pb-0">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-label-md text-label-md text-primary">{{ enrollment.course.title }}</h4>
+                        <span class="text-xs font-semibold">{{ enrollment.progress_percent }}% Complete</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-outline-variant/30 rounded-full overflow-hidden mt-2">
+                        <div class="h-full bg-primary-container" style="width: {{ enrollment.progress_percent }}%"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-sm text-on-surface-variant">No active enrollments for this student.</p>
+            {% endif %}
+        </div>
+        {% else %}
+        <p class="text-sm text-on-surface-variant">No students registered in the platform yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Right Column: Verification Stats -->
+    <div class="lg:col-span-4 flex flex-col gap-6">
+        <div class="card-level-1 p-6 rounded-xl bg-surface-container-lowest">
+            <h3 class="font-headline-md text-primary mb-4">Operational Status</h3>
+            <div class="p-3 bg-surface-bright rounded-lg border border-outline-variant flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-[#27AE60]"></span>
+                <span class="text-xs font-semibold text-primary">Active Learning Account</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

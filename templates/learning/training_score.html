@@ -1,0 +1,73 @@
+{% extends 'base_student.html' %}
+
+{% block title %}Training Evaluation Results - Raise Labs Learning{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-6">
+    <div class="mb-6">
+        <a href="{% url 'training_dashboard' %}" class="text-sm text-on-surface-variant hover:text-primary flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Training
+        </a>
+    </div>
+
+    <!-- Toggle results state (For demo simulation purposes) -->
+    <div class="mb-6 p-4 bg-surface-bright rounded-lg border border-outline-variant flex gap-4 items-center justify-between">
+        <span class="text-sm font-semibold text-primary">Simulation Panel: Toggle Evaluation Result</span>
+        <div class="flex gap-2">
+            <a href="?result=passed" class="px-3 py-1.5 bg-[#27AE60]/10 text-[#27AE60] border border-[#27AE60] rounded text-xs font-semibold hover:bg-[#27AE60]/20 transition-all">Mock Pass</a>
+            <a href="?result=failed" class="px-3 py-1.5 bg-[#ba1a1a]/10 text-[#ba1a1a] border border-[#ba1a1a] rounded text-xs font-semibold hover:bg-[#ba1a1a]/20 transition-all">Mock Fail</a>
+        </div>
+    </div>
+
+    {% if status == 'PASSED' %}
+    <!-- Passed State -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 shadow-sm flex flex-col gap-6">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-4xl text-[#27AE60]">verified_user</span>
+            <div>
+                <h1 class="font-headline-lg text-headline-lg text-primary">Evaluation Result: Passed</h1>
+                <p class="text-xs text-on-surface-variant mt-1">Final Score: {{ score }}/100 • Grade: A</p>
+            </div>
+        </div>
+
+        <div class="p-6 bg-surface-bright border border-outline-variant rounded-lg flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <h4 class="font-headline-md text-primary">Alex Mercer</h4>
+                <p class="text-xs text-on-surface-variant mt-0.5">Professional Certificate in Full-Stack Development</p>
+                <p class="text-[11px] text-outline mt-2">Credential ID: RL-{{ user.id|add:"84729" }} • Verified cryptographically</p>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="bg-[#27AE60] text-white px-6 py-3 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer">
+                    Claim Certificate
+                </button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <!-- Failed State -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 shadow-sm flex flex-col gap-6">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-4xl text-[#ba1a1a]">cancel</span>
+            <div>
+                <h1 class="font-headline-lg text-headline-lg text-primary">Evaluation Result: Needs Improvement</h1>
+                <p class="text-xs text-on-surface-variant mt-1">Final Score: {{ score }}/100 (Required: 60/100)</p>
+            </div>
+        </div>
+
+        <div class="p-4 bg-[#ffdad6] border border-[#ba1a1a] rounded-lg text-sm text-[#ba1a1a]">
+            You did not meet the minimum passing criteria. You are eligible to review the rubric feedback and schedule a retry.
+        </div>
+
+        <div class="flex gap-3">
+            <a href="{% url 'training_interview' %}" class="bg-[#0a1a3b] text-white px-6 py-3 rounded-lg font-label-md text-label-md hover:opacity-90 transition-all text-center cursor-pointer">
+                Schedule Interview Retry
+            </a>
+            <button onclick="alert('Opening feedback rubrics...')" class="border border-outline text-primary px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-all cursor-pointer">
+                Review Rubric Feedback
+            </button>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

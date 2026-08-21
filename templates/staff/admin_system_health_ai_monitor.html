@@ -1,0 +1,54 @@
+{% extends 'base_staff.html' %}
+
+{% block title %}System Health - Raise Labs Admin{% endblock %}
+
+{% block content %}
+<header class="mb-8">
+    <h2 class="font-display-lg-mobile md:font-display-lg text-primary">System Health Monitor</h2>
+    <p class="font-body-md text-on-surface-variant mt-1">Platform operational status and database load monitors.</p>
+</header>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="card-level-1 p-6 rounded-xl">
+        <h3 class="font-headline-md text-primary mb-4">Core Operational Status</h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center text-sm">
+                <span>Database Connection</span>
+                <span class="text-[#27AE60] font-semibold">Healthy</span>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+                <span>Verification Engine</span>
+                <span class="text-[#27AE60] font-semibold">Online</span>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+                <span>Email dispatch queue</span>
+                <span class="text-[#27AE60] font-semibold">Idle</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-level-1 p-6 rounded-xl">
+        <h3 class="font-headline-md text-primary mb-4">System Metrics</h3>
+        <div class="space-y-4">
+            <div>
+                <div class="flex justify-between text-xs text-on-surface-variant mb-1">
+                    <span>CPU Usage</span>
+                    <span>12%</span>
+                </div>
+                <div class="h-1.5 w-full bg-outline-variant/30 rounded-full overflow-hidden">
+                    <div class="h-full bg-[#27AE60] w-[12%]"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-xs text-on-surface-variant mb-1">
+                    <span>Memory Usage</span>
+                    <span>34%</span>
+                </div>
+                <div class="h-1.5 w-full bg-outline-variant/30 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary-container w-[34%]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

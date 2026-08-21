@@ -1,0 +1,101 @@
+{% extends 'base_student.html' %}
+
+{% block title %}My Profile - Raise Labs Learning{% endblock %}
+
+{% block content %}
+<!-- Messages / Alerts -->
+{% if messages %}
+<div class="mb-6 space-y-2">
+    {% for message in messages %}
+    <div class="p-4 rounded-lg text-sm font-medium {% if message.tags == 'error' %}bg-[#ffdad6] text-[#ba1a1a]{% else %}bg-secondary-container text-on-secondary-container{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Header Profile Section -->
+<header class="flex flex-col md:flex-row gap-gutter items-start md:items-center mb-12">
+    <div class="w-24 h-24 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-4xl font-bold uppercase shrink-0">
+        {{ user.username|slice:":2" }}
+    </div>
+    <div class="flex-1 ml-4">
+        <h1 class="font-display-lg-mobile md:font-display-lg text-primary mb-stack-sm">{{ profile.name }}</h1>
+        <p class="font-body-lg text-secondary mb-stack-sm">{{ user.email }} • Student Portal</p>
+        <div class="flex gap-stack-sm items-center">
+            {% if profile.github_url %}
+            <a href="{{ profile.github_url }}" class="text-primary hover:text-secondary transition-colors" target="_blank"><span class="material-symbols-outlined">code</span> GitHub</a>
+            {% endif %}
+            {% if profile.linkedin_url %}
+            <span class="text-outline mx-2">|</span>
+            <a href="{{ profile.linkedin_url }}" class="text-primary hover:text-secondary transition-colors" target="_blank"><span class="material-symbols-outlined">work</span> LinkedIn</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    <!-- Left Column: Edit Profile Form -->
+    <div class="lg:col-span-8 flex flex-col gap-6">
+        <section class="card-level-1 p-6 rounded-xl">
+            <h2 class="font-headline-lg text-primary border-l-2 border-primary-container pl-4 mb-stack-md">Edit Profile Information</h2>
+            <form method="post" class="flex flex-col gap-4">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="flex flex-col gap-2">
+                    <label class="font-label-md text-label-md text-on-surface" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <span class="text-xs text-[#ba1a1a]">{{ field.errors.0 }}</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="mt-4 bg-primary-container text-white py-3 px-6 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer text-center">
+                    Save Changes
+                </button>
+            </form>
+        </section>
+
+        <!-- Stats Overview -->
+        <section class="card-level-1 p-6 rounded-xl">
+            <h2 class="font-headline-lg text-primary border-l-2 border-primary-container pl-4 mb-stack-md">My Statistics</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-surface-bright p-4 rounded-lg border border-outline-variant text-center">
+                    <span class="text-3xl font-bold text-primary">{{ stats.enrollments_count }}</span>
+                    <p class="text-xs text-on-surface-variant uppercase mt-1">Enrolled Courses</p>
+                </div>
+                <div class="bg-surface-bright p-4 rounded-lg border border-outline-variant text-center">
+                    <span class="text-3xl font-bold text-primary">{{ stats.submissions_count }}</span>
+                    <p class="text-xs text-on-surface-variant uppercase mt-1">Tasks Submitted</p>
+                </div>
+                <div class="bg-surface-bright p-4 rounded-lg border border-outline-variant text-center">
+                    <span class="text-3xl font-bold text-[#27AE60]">{{ stats.certificates_count }}</span>
+                    <p class="text-xs text-on-surface-variant uppercase mt-1">Certificates Earned</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Right Column: Enrollments List -->
+    <div class="lg:col-span-4 flex flex-col gap-6">
+        <div class="card-level-1 p-6 rounded-xl">
+            <h3 class="font-headline-md text-primary mb-4">My Enrollments</h3>
+            {% if enrollments %}
+            <div class="space-y-4">
+                {% for enrollment in enrollments %}
+                <div class="border-b border-outline-variant/30 pb-3 last:border-0 last:pb-0">
+                    <h4 class="font-label-md text-label-md text-primary">{{ enrollment.course.title }}</h4>
+                    <div class="flex justify-between text-xs text-on-surface-variant mt-1">
+                        <span>Progress: {{ enrollment.progress_percent }}%</span>
+                        <span>Type: {{ enrollment.course.get_course_type_display }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-sm text-on-surface-variant">You are not enrolled in any program yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

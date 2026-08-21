@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col bg-surface-container-lowest dark:bg-surface-container-low h-screen w-64 fixed left-0 top-0 border-r border-outline-variant dark:border-outline p-stack-md gap-stack-md z-40">
+    <div class="flex items-center gap-3 mb-stack-lg px-2">
+        <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+            <span class="material-symbols-outlined">person</span>
+        </div>
+        <a href="{% url 'homepage' %}" class="hover:opacity-80 transition-opacity">
+            <div>
+                <h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Raise Labs</h1>
+                <p class="font-label-sm text-label-sm text-on-surface-variant">Student Workspace</p>
+            </div>
+        </a>
+    </div>
+    <div class="flex flex-col gap-2 flex-grow">
+        <a class="flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md transition-all active:scale-95 duration-200 {% if request.resolver_match.view_name == 'dashboard' %}bg-secondary-container text-on-secondary-container border-l-2 border-primary{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}" href="{% url 'dashboard' %}">
+            <span class="material-symbols-outlined">home</span>
+            Home
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md transition-all active:scale-95 duration-200 {% if request.resolver_match.view_name == 'internship_track' or request.resolver_match.view_name == 'course_player' %}bg-secondary-container text-on-secondary-container border-l-2 border-primary{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}" href="{% url 'internship_track' %}">
+            <span class="material-symbols-outlined">school</span>
+            My Courses
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md transition-all active:scale-95 duration-200 {% if request.resolver_match.view_name == 'courses_catalog' or request.resolver_match.view_name == 'checkout' %}bg-secondary-container text-on-secondary-container border-l-2 border-primary{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}" href="{% url 'courses_catalog' %}">
+            <span class="material-symbols-outlined">work_outline</span>
+            Marketplace
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md transition-all active:scale-95 duration-200 {% if 'training' in request.resolver_match.view_name %}bg-secondary-container text-on-secondary-container border-l-2 border-primary{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}" href="{% url 'training_dashboard' %}">
+            <span class="material-symbols-outlined">model_training</span>
+            Training
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md transition-all active:scale-95 duration-200 {% if request.resolver_match.view_name == 'skills_wallet' %}bg-secondary-container text-on-secondary-container border-l-2 border-primary{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}" href="{% url 'skills_wallet' %}">
+            <span class="material-symbols-outlined">verified</span>
+            Skills Wallet
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-all active:scale-95 duration-200" href="{% url 'career_paths' %}">
+            <span class="material-symbols-outlined">route</span>
+            Career Paths
+        </a>
+    </div>
+    <button onclick="window.location.href='{% url 'courses_catalog' %}'" class="w-full py-3 bg-primary-container text-on-primary text-white rounded-lg font-label-md text-label-md mb-4 hover:opacity-90 transition-opacity">
+        Explore Catalog
+    </button>
+    <div class="flex flex-col gap-2 mt-auto border-t border-outline-variant pt-4">
+        <a class="flex items-center gap-3 px-4 py-2 rounded-lg font-label-md text-label-md {% if request.resolver_match.view_name == 'profile' %}bg-secondary-container text-on-secondary-container{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}" href="{% url 'profile' %}">
+            <span class="material-symbols-outlined">settings</span>
+            Settings
+        </a>
+        <form action="{% url 'logout' %}" method="post" class="w-full">
+            {% csrf_token %}
+            <button type="submit" class="flex w-full items-center gap-3 px-4 py-2 text-[#ba1a1a] hover:bg-[#ba1a1a]/10 transition-all rounded-lg font-label-md text-label-md text-left">
+                <span class="material-symbols-outlined">logout</span>
+                Sign Out
+            </button>
+        </form>
+    </div>
+</nav>
+
+<!-- Main Wrapper -->
+<main class="md:ml-64 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto pb-32 md:pb-margin-desktop flex-grow w-full animate-fade-in">
+    <!-- Top Header for Desktop -->
+    <div class="hidden md:flex justify-between items-center mb-6">
+        <div>
+            <span class="text-on-surface-variant text-sm">Welcome back, <strong>{{ user.profile.name }}</strong></span>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="{% url 'homepage' %}" class="text-xs text-on-surface-variant hover:text-primary transition-all">Homepage</a>
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+        </div>
+    </div>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant dark:border-outline shadow-sm rounded-t-xl pb-6 pt-3">
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high font-label-sm text-label-sm" href="{% url 'courses_catalog' %}">
+        <span class="material-symbols-outlined">explore</span>
+        <span>Explore</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high font-label-sm text-label-sm" href="{% url 'internship_track' %}">
+        <span class="material-symbols-outlined">menu_book</span>
+        <span>Learning</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high font-label-sm text-label-sm" href="{% url 'training_dashboard' %}">
+        <span class="material-symbols-outlined">model_training</span>
+        <span>Training</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high font-label-sm text-label-sm" href="{% url 'skills_wallet' %}">
+        <span class="material-symbols-outlined">workspace_premium</span>
+        <span>Wallet</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high font-label-sm text-label-sm" href="{% url 'profile' %}">
+        <span class="material-symbols-outlined">account_circle</span>
+        <span>Profile</span>
+    </a>
+</nav>
+{% endblock %}

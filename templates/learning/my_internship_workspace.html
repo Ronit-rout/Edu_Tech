@@ -1,0 +1,51 @@
+{% extends 'base_student.html' %}
+
+{% block title %}My Courses - Raise Labs Learning{% endblock %}
+
+{% block content %}
+<header class="mb-8">
+    <span class="text-xs text-on-surface-variant uppercase tracking-wider">Learning Hub</span>
+    <h2 class="font-display-lg-mobile md:font-display-lg text-primary mt-1">{{ enrollment.course.title }}</h2>
+</header>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    <!-- Left: Modules List -->
+    <div class="lg:col-span-8 flex flex-col gap-6">
+        <h3 class="font-headline-md text-primary mb-2">Program Curriculum</h3>
+        
+        <div class="space-y-4">
+            {% if modules %}
+                {% for module in modules %}
+                <div class="card-level-1 p-6 rounded-xl flex justify-between items-center relative overflow-hidden group">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div>
+                    <div>
+                        <span class="text-xs text-on-surface-variant font-medium">Level 1 • Module {{ module.order }}</span>
+                        <h4 class="font-headline-md text-primary mt-1">{{ module.title }}</h4>
+                        <p class="text-xs text-on-surface-variant mt-2">{{ module.description }}</p>
+                    </div>
+                    <div>
+                        <a href="{% url 'course_player' %}" class="bg-primary-container text-white px-4 py-2 rounded font-label-md text-label-md hover:opacity-90 transition-opacity cursor-pointer">Open Workspace</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-sm text-on-surface-variant">No modules registered for this course yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Right: Stats Panel -->
+    <div class="lg:col-span-4 flex flex-col gap-6">
+        <div class="card-level-1 p-6 rounded-xl">
+            <h3 class="font-headline-md text-primary mb-4">Workspace Progress</h3>
+            <div class="flex justify-between items-center text-sm text-on-surface-variant mb-2">
+                <span>Progress</span>
+                <span class="font-semibold">{{ enrollment.progress_percent }}%</span>
+            </div>
+            <div class="h-2 w-full bg-outline-variant/30 rounded-full overflow-hidden">
+                <div class="h-full bg-primary-container" style="width: {{ enrollment.progress_percent }}%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

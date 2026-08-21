@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!-- Admin/Staff SideNav -->
+<nav class="bg-primary-container text-on-primary-container h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flat no shadows flex flex-col p-stack-md gap-stack-md z-40 hidden md:flex">
+    <!-- Brand -->
+    <a href="{% url 'homepage' %}" class="hover:opacity-80 transition-opacity">
+        <div class="mb-stack-lg px-2 pt-4">
+            <h1 class="font-headline-md text-headline-md font-bold text-on-primary">Raise Labs Staff</h1>
+            <p class="font-label-sm text-label-sm text-inverse-primary mt-1">
+                {% if user.role == 'ADMIN' %}Admin Console{% elif user.role == 'EDUCATOR' %}Educator Studio{% else %}HR Intelligence{% endif %}
+            </p>
+        </div>
+    </a>
+
+    <!-- Navigation Links -->
+    <div class="flex-1 flex flex-col gap-unit">
+        {% if user.role == 'ADMIN' %}
+        <!-- Admin Navigation -->
+        <a class="px-4 py-3 flex items-center gap-3 transition-colors rounded-lg font-label-md text-label-md {% if request.resolver_match.view_name == 'admin_overview' %}bg-primary-fixed-dim text-on-primary-fixed border-l-2 border-primary-fixed{% else %}text-inverse-primary hover:bg-surface-tint{% endif %}" href="{% url 'admin_overview' %}">
+            <span class="material-symbols-outlined">dashboard</span>
+            Overview
+        </a>
+        <a class="px-4 py-3 flex items-center gap-3 transition-colors rounded-lg font-label-md text-label-md {% if request.resolver_match.view_name == 'admin_student_profile' %}bg-primary-fixed-dim text-on-primary-fixed border-l-2 border-primary-fixed{% else %}text-inverse-primary hover:bg-surface-tint{% endif %}" href="{% url 'admin_student_profile' %}">
+            <span class="material-symbols-outlined">group</span>
+            Students (360)
+        </a>
+        <a class="px-4 py-3 flex items-center gap-3 transition-colors rounded-lg font-label-md text-label-md {% if request.resolver_match.view_name == 'admin_evaluation_center' %}bg-primary-fixed-dim text-on-primary-fixed border-l-2 border-primary-fixed{% else %}text-inverse-primary hover:bg-surface-tint{% endif %}" href="{% url 'admin_evaluation_center' %}">
+            <span class="material-symbols-outlined">assignment</span>
+            Evaluations
+        </a>
+        <a class="px-4 py-3 flex items-center gap-3 transition-colors rounded-lg font-label-md text-label-md {% if request.resolver_match.view_name == 'admin_health_monitor' %}bg-primary-fixed-dim text-on-primary-fixed border-l-2 border-primary-fixed{% else %}text-inverse-primary hover:bg-surface-tint{% endif %}" href="{% url 'admin_health_monitor' %}">
+            <span class="material-symbols-outlined">settings_system_daydream</span>
+            System Health
+        </a>
+        {% elif user.role == 'EDUCATOR' %}
+        <!-- Educator Navigation -->
+        <a class="px-4 py-3 flex items-center gap-3 transition-colors rounded-lg font-label-md text-label-md {% if request.resolver_match.view_name == 'educator_studio' %}bg-primary-fixed-dim text-on-primary-fixed border-l-2 border-primary-fixed{% else %}text-inverse-primary hover:bg-surface-tint{% endif %}" href="{% url 'educator_studio' %}">
+            <span class="material-symbols-outlined">design_services</span>
+            Program Builder
+        </a>
+        <a class="px-4 py-3 flex items-center gap-3 transition-colors rounded-lg font-label-md text-label-md text-inverse-primary hover:bg-surface-tint" href="{% url 'admin_student_profile' %}">
+            <span class="material-symbols-outlined">school</span>
+            Student Submissions
+        </a>
+        {% elif user.role == 'HR' %}
+        <!-- HR Navigation -->
+        <a class="px-4 py-3 flex items-center gap-3 transition-colors rounded-lg font-label-md text-label-md {% if request.resolver_match.view_name == 'hr_dashboard' %}bg-primary-fixed-dim text-on-primary-fixed border-l-2 border-primary-fixed{% else %}text-inverse-primary hover:bg-surface-tint{% endif %}" href="{% url 'hr_dashboard' %}">
+            <span class="material-symbols-outlined">badge</span>
+            Talent Dashboard
+        </a>
+        <a class="px-4 py-3 flex items-center gap-3 transition-colors rounded-lg font-label-md text-label-md text-inverse-primary hover:bg-surface-tint" href="{% url 'admin_student_profile' %}">
+            <span class="material-symbols-outlined">search</span>
+            Search Candidates
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Footer Links -->
+    <div class="flex flex-col gap-2 border-t border-[#384669] pt-4">
+        <a href="{% url 'homepage' %}" class="px-4 py-2 flex items-center gap-3 text-inverse-primary hover:bg-surface-tint rounded-lg font-label-md text-label-md">
+            <span class="material-symbols-outlined">home</span>
+            Homepage
+        </a>
+        <form action="{% url 'logout' %}" method="post" class="w-full">
+            {% csrf_token %}
+            <button type="submit" class="flex w-full items-center gap-3 px-4 py-2 text-[#ffdad6] hover:bg-[#ffdad6]/10 transition-all rounded-lg font-label-md text-label-md text-left">
+                <span class="material-symbols-outlined">logout</span>
+                Sign Out
+            </button>
+        </form>
+    </div>
+</nav>
+
+<!-- Main Wrapper -->
+<main class="md:ml-64 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto pb-32 md:pb-margin-desktop flex-grow w-full animate-fade-in">
+    <!-- Top Header for Desktop -->
+    <div class="hidden md:flex justify-between items-center mb-6 pb-4 border-b border-outline-variant/30">
+        <div>
+            <span class="text-on-surface-variant text-sm">Staff Account: <strong>{{ user.profile.name }}</strong> (Role: {{ user.get_role_display }})</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+            <span class="text-xs font-semibold text-primary">System Online</span>
+        </div>
+    </div>
+    {% block content %}{% endblock %}
+</main>
+{% endblock %}

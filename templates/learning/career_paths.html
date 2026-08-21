@@ -1,0 +1,42 @@
+{% extends 'base_student.html' %}
+
+{% block title %}Career Paths - Raise Labs Learning{% endblock %}
+
+{% block content %}
+<header class="mb-12">
+    <h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-stack-md">Career Paths</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Browse structured pathways designed to take you from foundational concepts to industry readiness.</p>
+</header>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+    <!-- Path 1 -->
+    <div class="card-level-1 p-6 rounded-xl flex flex-col justify-between">
+        <div>
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">devices</span>
+            <h3 class="font-headline-md text-headline-md text-primary mb-2">Frontend Developer</h3>
+            <p class="text-sm text-on-surface-variant mb-6">Master HTML, CSS, JavaScript, React.js, responsive layouts, and performance optimization techniques.</p>
+        </div>
+        <button onclick="window.location.href='{% url 'courses_catalog' %}'" class="w-full border border-primary-container text-primary-container py-2.5 rounded-lg hover:bg-surface-container-high transition-all cursor-pointer">Explore Catalog</button>
+    </div>
+
+    <!-- Path 2 -->
+    <div class="card-level-1 p-6 rounded-xl flex flex-col justify-between">
+        <div>
+            <span class="material-symbols-outlined text-3xl text-[#c9a900] mb-4">psychology</span>
+            <h3 class="font-headline-md text-headline-md text-primary mb-2">AI & Machine Learning</h3>
+            <p class="text-sm text-on-surface-variant mb-6">Build neural networks, data processing models, computer vision dashboards, and natural language algorithms.</p>
+        </div>
+        <button onclick="window.location.href='{% url 'courses_catalog' %}'" class="w-full border border-primary-container text-primary-container py-2.5 rounded-lg hover:bg-surface-container-high transition-all cursor-pointer">Explore Catalog</button>
+    </div>
+
+    <!-- Path 3 -->
+    <div class="card-level-1 p-6 rounded-xl flex flex-col justify-between">
+        <div>
+            <span class="material-symbols-outlined text-3xl text-secondary mb-4">palette</span>
+            <h3 class="font-headline-md text-headline-md text-primary mb-2">Product Designer</h3>
+            <p class="text-sm text-on-surface-variant mb-6">Learn UI/UX layout mechanics, typography principles, bento grid structures, and interactive Figma prototyping.</p>
+        </div>
+        <button onclick="window.location.href='{% url 'courses_catalog' %}'" class="w-full border border-primary-container text-primary-container py-2.5 rounded-lg hover:bg-surface-container-high transition-all cursor-pointer">Explore Catalog</button>
+    </div>
+</div>
+{% endblock %}

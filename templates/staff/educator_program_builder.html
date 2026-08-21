@@ -1,0 +1,29 @@
+{% extends 'base_staff.html' %}
+
+{% block title %}Program Builder - Educator Studio{% endblock %}
+
+{% block content %}
+<header class="mb-8">
+    <h2 class="font-display-lg-mobile md:font-display-lg text-primary">Program Builder</h2>
+    <p class="font-body-md text-on-surface-variant mt-1">Design course roadmaps and configure lesson task requirements.</p>
+</header>
+
+<div class="card-level-1 p-6 rounded-xl mb-6">
+    <h3 class="font-headline-md text-primary mb-4">Active Course Templates</h3>
+    {% if courses %}
+        <div class="space-y-4">
+            {% for course in courses %}
+            <div class="p-4 bg-surface-bright border border-outline-variant rounded-lg flex justify-between items-center">
+                <div>
+                    <h4 class="font-label-md text-label-md text-primary">{{ course.title }}</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Duration: {{ course.duration_weeks }} Weeks • Price: ${{ course.price }}</p>
+                </div>
+                <button onclick="alert('Program configurations loaded...')" class="bg-primary-container text-white px-4 py-2 rounded text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer">Configure</button>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-sm text-on-surface-variant">No courses defined in database yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

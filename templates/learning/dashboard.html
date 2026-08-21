@@ -1,0 +1,152 @@
+{% extends 'base_student.html' %}
+
+{% block title %}Student Dashboard - Raise Labs Learning{% endblock %}
+
+{% block content %}
+<!-- Messages / Alerts -->
+{% if messages %}
+<div class="mb-6 space-y-2">
+    {% for message in messages %}
+    <div class="p-4 rounded-lg text-sm font-medium bg-[#0A1A3B] text-white border border-yellow-400">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="flex flex-col gap-8">
+    <!-- Header Summary Card -->
+    <header class="card-level-2 rounded-2xl p-6 bg-white border border-outline-variant flex justify-between items-center">
+        <div>
+            <h2 class="font-headline-lg text-primary">Student Center</h2>
+            <p class="font-body-md text-on-surface-variant mt-1">Access courses, view evaluations, and track your certification roadmap.</p>
+        </div>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+        <!-- Left: Active Tracks -->
+        <div class="lg:col-span-8 flex flex-col gap-6">
+            <!-- Internship Track Promo or Card -->
+            <section class="card-level-1 p-6 rounded-xl border-l-[3px] border-l-primary-container">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="inline-block px-2 py-0.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded mb-2">Internship Pathway</span>
+                        {% if internship_enrollment %}
+                        <h3 class="font-headline-md text-primary">{{ internship_enrollment.course.title }}</h3>
+                        {% else %}
+                        <h3 class="font-headline-md text-primary">No Active Internship</h3>
+                        {% endif %}
+                    </div>
+                    {% if internship_enrollment %}
+                    <span class="text-sm font-semibold">{{ internship_enrollment.progress_percent }}% Complete</span>
+                    {% endif %}
+                </div>
+                {% if internship_enrollment %}
+                <div class="h-2 w-full bg-outline-variant/30 rounded-full mb-6 overflow-hidden">
+                    <div class="h-full bg-primary-container" style="width: {{ internship_enrollment.progress_percent }}%"></div>
+                </div>
+                <div class="flex gap-3">
+                    <a href="{% url 'internship_track' %}" class="bg-primary-container text-white font-label-md text-label-md px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity cursor-pointer">Open Learning Hub</a>
+                    <a href="{% url 'course_player' %}" class="border border-outline text-primary font-label-md text-label-md px-6 py-2.5 rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer">Resume Lesson</a>
+                </div>
+                {% else %}
+                <p class="text-sm text-on-surface-variant mb-6">Enroll in a free internship to start learning and verifying your skills with real projects.</p>
+                <a href="{% url 'courses_catalog' %}" class="inline-block bg-primary-container text-white font-label-md text-label-md px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity cursor-pointer">Explore Catalog</a>
+                {% endif %}
+            </section>
+
+            <!-- Training Track Promo or Card -->
+            <section class="card-level-1 p-6 rounded-xl border-l-[3px] border-l-[#c9a900]">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="inline-block px-2 py-0.5 bg-[#ffe16d] text-[#221b00] font-label-sm text-label-sm rounded mb-2">Professional Paid Training</span>
+                        {% if training_enrollment %}
+                        <h3 class="font-headline-md text-primary">{{ training_enrollment.course.title }}</h3>
+                        {% else %}
+                        <h3 class="font-headline-md text-primary">No Active Training</h3>
+                        {% endif %}
+                    </div>
+                    {% if training_enrollment %}
+                    <span class="text-sm font-semibold">{{ training_enrollment.progress_percent }}% Complete</span>
+                    {% endif %}
+                </div>
+                {% if training_enrollment %}
+                <div class="h-2 w-full bg-outline-variant/30 rounded-full mb-6 overflow-hidden">
+                    <div class="h-full bg-[#c9a900]" style="width: {{ training_enrollment.progress_percent }}%"></div>
+                </div>
+                <div class="flex gap-3">
+                    <a href="{% url 'training_dashboard' %}" class="bg-[#0a1a3b] text-white font-label-md text-label-md px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity cursor-pointer">Go to Training Dashboard</a>
+                </div>
+                {% else %}
+                <p class="text-sm text-on-surface-variant mb-6">Upgrade to paid professional training to access structured modules, evaluations, 1-on-1 interviews, and formal certifications.</p>
+                <a href="{% url 'courses_catalog' %}" class="inline-block bg-primary-container text-white font-label-md text-label-md px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity cursor-pointer">Explore Paid Programs</a>
+                {% endif %}
+            </section>
+        </div>
+
+        <!-- Right: Stepper / Journey Progress -->
+        <div class="lg:col-span-4 flex flex-col gap-6">
+            <div class="card-level-1 p-6 rounded-xl">
+                <h3 class="font-headline-md text-primary mb-6">Learning Journey</h3>
+                
+                <div class="relative pl-6 border-l border-outline-variant space-y-6">
+                    <!-- Step 1 -->
+                    <div class="relative">
+                        <div class="absolute -left-[30px] top-0.5 w-4 h-4 rounded-full bg-[#27AE60] border-2 border-white flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[10px] text-white icon-fill font-bold">check</span>
+                        </div>
+                        <h4 class="font-label-md text-label-md text-primary">Joined Raise Labs</h4>
+                        <p class="text-xs text-on-surface-variant mt-0.5">Account successfully registered</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative">
+                        <div class="absolute -left-[30px] top-0.5 w-4 h-4 rounded-full bg-[#27AE60] border-2 border-white flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[10px] text-white icon-fill font-bold">check</span>
+                        </div>
+                        <h4 class="font-label-md text-label-md text-primary">Profile Ready</h4>
+                        <p class="text-xs text-on-surface-variant mt-0.5">Profile variables initialized</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative">
+                        <div class="absolute -left-[30px] top-0.5 w-4 h-4 rounded-full {% if internship_enrollment or training_enrollment %}bg-[#27AE60]{% else %}bg-[#0a1a3b]{% endif %} border-2 border-white flex items-center justify-center">
+                            {% if internship_enrollment or training_enrollment %}
+                            <span class="material-symbols-outlined text-[10px] text-white icon-fill font-bold">check</span>
+                            {% else %}
+                            <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                            {% endif %}
+                        </div>
+                        <h4 class="font-label-md text-label-md text-primary">Learning Started</h4>
+                        <p class="text-xs text-on-surface-variant mt-0.5">Enrolled in active courses</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative">
+                        <div class="absolute -left-[30px] top-0.5 w-4 h-4 rounded-full {% if training_enrollment and training_enrollment.progress_percent >= 50 %}bg-[#27AE60]{% elif training_enrollment %}bg-[#0a1a3b]{% else %}bg-outline-variant{% endif %} border-2 border-white flex items-center justify-center">
+                            {% if training_enrollment and training_enrollment.progress_percent >= 50 %}
+                            <span class="material-symbols-outlined text-[10px] text-white icon-fill font-bold">check</span>
+                            {% elif training_enrollment %}
+                            <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                            {% endif %}
+                        </div>
+                        <h4 class="font-label-md text-label-md {% if training_enrollment %}text-primary{% else %}text-on-surface-variant{% endif %}">Training Roadmap</h4>
+                        <p class="text-xs text-on-surface-variant mt-0.5">Complete course milestones</p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="relative">
+                        <div class="absolute -left-[30px] top-0.5 w-4 h-4 rounded-full {% if user.certificates.exists %}bg-[#27AE60]{% else %}bg-outline-variant{% endif %} border-2 border-white flex items-center justify-center">
+                            {% if user.certificates.exists %}
+                            <span class="material-symbols-outlined text-[10px] text-white icon-fill font-bold">check</span>
+                            {% endif %}
+                        </div>
+                        <h4 class="font-label-md text-label-md {% if user.certificates.exists %}text-primary{% else %}text-on-surface-variant{% endif %}">Credential Verified</h4>
+                        <p class="text-xs text-on-surface-variant mt-0.5">Secure professional certificate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

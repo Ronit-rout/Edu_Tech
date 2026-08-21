@@ -1,0 +1,45 @@
+{% extends 'base_staff.html' %}
+
+{% block title %}Evaluation Queue - Raise Labs Admin{% endblock %}
+
+{% block content %}
+<header class="mb-8">
+    <h2 class="font-display-lg-mobile md:font-display-lg text-primary">Evaluation Queue</h2>
+    <p class="font-body-md text-on-surface-variant mt-1">Review student task submissions and apply deterministic evaluations.</p>
+</header>
+
+<div class="space-y-6">
+    {% if submissions %}
+        {% for sub in submissions %}
+        <div class="card-level-1 p-6 rounded-xl relative overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1 {% if sub.status == 'PASSED' %}bg-[#27AE60]{% elif sub.status == 'SUBMITTED' %}bg-[#c9a900]{% else %}bg-[#ba1a1a]{% endif %}"></div>
+            
+            <div class="flex justify-between items-start flex-wrap gap-4 mb-4">
+                <div>
+                    <h3 class="font-headline-md text-primary">{{ sub.task.title }}</h3>
+                    <p class="text-xs text-on-surface-variant mt-1">Submitted by: <strong>{{ sub.student.username }}</strong> at {{ sub.submitted_at|date:"M d, Y H:i" }}</p>
+                </div>
+                <div>
+                    <span class="inline-block px-3 py-1 rounded text-xs font-semibold uppercase tracking-wider {% if sub.status == 'PASSED' %}bg-[#27AE60]/10 text-[#27AE60]{% elif sub.status == 'SUBMITTED' %}bg-[#ffe16d] text-[#221b00]{% else %}bg-[#ffdad6] text-[#ba1a1a]{% endif %}">
+                        {{ sub.get_status_display }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="p-4 bg-surface-bright border border-outline-variant/50 rounded-lg text-sm font-mono whitespace-pre-wrap mb-4">
+                {{ sub.submission_text }}
+            </div>
+
+            <div class="text-xs text-on-surface-variant">
+                <span>File attached: <a href="javascript:alert('Opening file path preview...')" class="text-primary font-semibold hover:underline">{{ sub.file_url }}</a></span>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="card-level-1 p-8 rounded-xl text-center text-on-surface-variant">
+        <span class="material-symbols-outlined text-4xl mb-2">inbox</span>
+        <p>No submissions currently in the evaluation queue.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

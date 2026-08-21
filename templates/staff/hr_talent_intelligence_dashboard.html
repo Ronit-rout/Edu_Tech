@@ -1,0 +1,46 @@
+{% extends 'base_staff.html' %}
+
+{% block title %}Talent Intelligence - HR Employer Console{% endblock %}
+
+{% block content %}
+<header class="mb-8">
+    <h2 class="font-display-lg-mobile md:font-display-lg text-primary">Talent Intelligence Dashboard</h2>
+    <p class="font-body-md text-on-surface-variant mt-1">Review student profiles, credentials, and portfolios verified on the platform.</p>
+</header>
+
+<div class="card-level-1 p-6 rounded-xl">
+    <h3 class="font-headline-md text-primary mb-4">Talent Directory</h3>
+    {% if students %}
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm border-collapse">
+                <thead>
+                    <tr class="border-b border-outline-variant/30 text-on-surface-variant">
+                        <th class="pb-3 font-semibold">Student Name</th>
+                        <th class="pb-3 font-semibold">Email</th>
+                        <th class="pb-3 font-semibold">Verification status</th>
+                        <th class="pb-3 font-semibold">Profile link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr class="border-b border-outline-variant/10 text-on-surface-variant/90 last:border-0">
+                        <td class="py-3 font-medium">{{ student.profile.name }}</td>
+                        <td class="py-3">{{ student.email }}</td>
+                        <td class="py-3">
+                            <span class="px-2 py-0.5 rounded text-xs font-semibold uppercase bg-[#27AE60]/10 text-[#27AE60] flex items-center gap-1 w-max">
+                                <span class="material-symbols-outlined text-[12px] font-bold">verified</span> Verified
+                            </span>
+                        </td>
+                        <td class="py-3">
+                            <a href="{% url 'admin_student_profile' %}" class="text-primary hover:underline font-semibold">View Profile</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-sm text-on-surface-variant">No candidate profiles registered yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

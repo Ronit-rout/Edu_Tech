@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign In - Raise Labs Learning{% endblock %}
+
+{% block body %}
+<div class="bg-background min-h-screen flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop antialiased">
+    <!-- Messages / Alerts -->
+    {% if messages %}
+    <div class="w-full max-w-[440px] mb-4 space-y-2">
+        {% for message in messages %}
+        <div class="p-4 rounded-lg text-sm font-medium {% if message.tags == 'error' %}bg-[#ffdad6] text-[#ba1a1a]{% else %}bg-secondary-container text-on-secondary-container{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Login Container -->
+    <main class="w-full max-w-[440px] bg-surface-container-lowest border border-outline-variant rounded-xl shell-shadow p-stack-lg md:p-[48px] flex flex-col gap-stack-lg relative z-10">
+        <!-- Header Section -->
+        <header class="flex flex-col gap-stack-sm items-center text-center">
+            <div class="font-headline-lg text-headline-lg text-primary tracking-tight mb-2">
+                Raise Labs Learning
+            </div>
+            <h1 class="font-headline-md text-headline-md text-on-surface">
+                Internal Portal
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+                Sign in to access your secure workspace.
+            </p>
+        </header>
+
+        <!-- Form Section -->
+        <form method="post" class="flex flex-col gap-stack-md w-full">
+            {% csrf_token %}
+            <!-- Username Input -->
+            <div class="flex flex-col gap-stack-sm">
+                <label class="font-label-md text-label-md text-on-surface" for="username">Username</label>
+                <input class="w-full bg-background border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-secondary-container transition-all" id="username" name="username" placeholder="Username" required="" type="text"/>
+            </div>
+            <!-- Password Input -->
+            <div class="flex flex-col gap-stack-sm">
+                <label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+                <input class="w-full bg-background border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-secondary-container transition-all" id="password" name="password" placeholder="Enter your password" required="" type="password"/>
+            </div>
+            <!-- Submit Button -->
+            <button class="mt-4 w-full bg-primary-container text-on-primary py-3 px-6 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center cursor-pointer text-white" type="submit">
+                Sign In
+            </button>
+        </form>
+
+        <div class="text-center text-sm">
+            <span class="text-on-surface-variant">New to Raise Labs?</span>
+            <a href="{% url 'signup' %}" class="text-primary font-semibold hover:underline">Create an Account</a>
+        </div>
+
+        <!-- Small Staff & Admin Access Menu -->
+        <div class="border-t border-outline-variant/30 pt-4 text-center">
+            <button type="button" onclick="document.getElementById('staff-access').classList.toggle('hidden')" class="text-xs text-on-surface-variant hover:text-primary transition-colors cursor-pointer font-medium">
+                Staff & Admin Demo Access ▾
+            </button>
+            <div id="staff-access" class="hidden mt-3 p-3 bg-surface-bright border border-outline-variant rounded-lg flex flex-col gap-2">
+                <div class="text-left text-xs font-semibold text-on-surface-variant mb-2 uppercase tracking-wider">Quick Login Demo Accounts:</div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="quickLogin('student')" class="px-3 py-2 bg-[#0a1a3b] hover:bg-[#0d224d] text-white rounded text-xs font-medium transition-all active:scale-95 cursor-pointer">Student</button>
+                    <button type="button" onclick="quickLogin('educator')" class="px-3 py-2 bg-[#0a1a3b] hover:bg-[#0d224d] text-white rounded text-xs font-medium transition-all active:scale-95 cursor-pointer">Educator</button>
+                    <button type="button" onclick="quickLogin('hr')" class="px-3 py-2 bg-[#ffe16d] hover:bg-[#ffd700] text-[#221b00] rounded text-xs font-semibold transition-all active:scale-95 cursor-pointer">HR Employer</button>
+                    <button type="button" onclick="quickLogin('admin')" class="px-3 py-2 bg-[#ba1a1a] hover:bg-[#93000a] text-white rounded text-xs font-medium transition-all active:scale-95 cursor-pointer">Admin</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Note -->
+        <footer class="text-center">
+            <p class="font-label-sm text-label-sm text-on-surface-variant font-normal">
+                Your authorized workspace will be determined automatically after authentication.
+            </p>
+        </footer>
+    </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function quickLogin(username) {
+        document.getElementById('username').value = username;
+        document.getElementById('password').value = 'raiselabs123';
+        document.querySelector('form').submit();
+    }
+</script>
+{% endblock %}

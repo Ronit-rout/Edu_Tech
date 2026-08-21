@@ -1,0 +1,78 @@
+{% extends 'base_public.html' %}
+
+{% block title %}About Us - Raise Labs Learning{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="py-section-gap max-w-3xl mx-auto text-center md:text-left pt-24 px-margin-mobile">
+    <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-stack-lg">
+        Proof over<br class="hidden md:block"/> Certificates.
+    </h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant md:max-w-2xl leading-relaxed">
+        We believe that what you can build matters more than where you learned to build it. Raise Labs Learning is building the infrastructure for a skill-verified future, moving beyond static resumes to dynamic, undeniable proof of mastery.
+    </p>
+</section>
+
+<!-- The Problem -->
+<section class="py-section-gap border-t border-outline-variant/30 px-margin-mobile">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        <div class="md:col-span-4 flex items-start">
+            <h2 class="font-headline-lg text-headline-lg text-primary sticky top-24">The Problem</h2>
+        </div>
+        <div class="md:col-span-8">
+            <p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-md leading-relaxed">
+                The traditional credentialing system is fundamentally broken. Degrees have become commoditized signals, while the rapid pace of technological change renders rigid curricula obsolete before students even graduate.
+            </p>
+            <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                Employers are drowning in resumes filled with unverified claims of "proficiency." There is a massive trust gap between what a candidate claims to know and what they can actually execute on day one. We are relying on proxies for competence instead of demanding proof.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- The Solution -->
+<section class="py-section-gap border-t border-outline-variant/30 px-margin-mobile">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-stack-lg">
+        <div class="md:col-span-4">
+            <h2 class="font-headline-lg text-headline-lg text-primary">The Solution</h2>
+        </div>
+        <div class="md:col-span-8 flex items-center">
+            <p class="font-body-lg text-body-lg text-on-surface-variant">Introducing the Mastery Engine. A deterministic framework for evaluating applied knowledge.</p>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <div class="bg-surface-container-lowest border border-outline-variant/50 p-6 rounded-xl flex flex-col gap-stack-md transition-shadow hover:shadow-sm">
+            <div class="w-12 h-12 rounded bg-secondary-container flex items-center justify-center text-on-secondary-container">
+                <span class="material-symbols-outlined">account_tree</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-primary">Granular Validation</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">We break down complex disciplines into atomic, testable skills. No vague 'marketing' skills, only specific, verifiable competencies.</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/50 p-6 rounded-xl flex flex-col gap-stack-md transition-shadow hover:shadow-sm">
+            <div class="w-12 h-12 rounded bg-secondary-container flex items-center justify-center text-on-secondary-container">
+                <span class="material-symbols-outlined">architecture</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-primary">Applied Projects</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">Knowledge is proven in context. Assessments are rigorous, real-world simulations that require building, not just answering multiple-choice questions.</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/50 p-6 rounded-xl flex flex-col gap-stack-md transition-shadow hover:shadow-sm md:col-span-3 lg:col-span-1">
+            <div class="w-12 h-12 rounded bg-secondary-container flex items-center justify-center text-on-secondary-container">
+                <span class="material-symbols-outlined">verified</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-primary">Immutable Record</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">Earned skills are cryptographically secured in a universal Wallet, providing a single source of truth for your professional capabilities.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Mission -->
+<section class="py-section-gap border-t border-outline-variant/30 px-margin-mobile">
+    <div class="bg-primary-container text-on-primary-container p-12 md:p-24 rounded-2xl flex flex-col items-center text-center">
+        <span class="material-symbols-outlined text-4xl mb-stack-md text-inverse-primary">language</span>
+        <h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary mb-stack-md">Our Mission</h2>
+        <p class="font-body-lg text-body-lg max-w-2xl leading-relaxed text-inverse-primary">
+            To democratize access to economic opportunity by replacing the pedigree-based hiring system with a meritocratic, skill-verified reality. We envision a world where talent is recognized universally, regardless of origin.
+        </p>
+    </div>
+</section>
+{% endblock %}

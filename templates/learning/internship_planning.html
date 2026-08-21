@@ -1,0 +1,36 @@
+{% extends 'base_student.html' %}
+
+{% block title %}Onboarding Calibration - Raise Labs Learning{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-6">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 shadow-sm">
+        <div class="text-center mb-8">
+            <span class="material-symbols-outlined text-4xl text-primary mb-2">radar</span>
+            <h1 class="font-headline-lg text-headline-lg text-primary">Onboarding Calibration</h1>
+            <p class="font-body-md text-on-surface-variant mt-2">Initialize your student profile configurations to match program guidelines.</p>
+        </div>
+
+        <div class="space-y-4 mb-8">
+            <div class="p-4 bg-surface-bright rounded-lg border border-outline-variant flex gap-3">
+                <span class="material-symbols-outlined text-[#27AE60]">check_circle</span>
+                <div>
+                    <h4 class="font-label-md text-label-md text-primary">Pre-requisite Check</h4>
+                    <p class="text-xs text-on-surface-variant mt-0.5">Your email has been successfully registered.</p>
+                </div>
+            </div>
+            <div class="p-4 bg-surface-bright rounded-lg border border-outline-variant flex gap-3">
+                <span class="material-symbols-outlined text-primary-container animate-pulse">sync</span>
+                <div>
+                    <h4 class="font-label-md text-label-md text-primary">Profile Configuration</h4>
+                    <p class="text-xs text-on-surface-variant mt-0.5">Preparing courses workspace configurations...</p>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="window.location.href='{% url 'dashboard' %}?onboarded=true'" class="w-full bg-primary-container text-white py-4 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer text-center">
+            Complete Calibration & Open Dashboard
+        </button>
+    </div>
+</div>
+{% endblock %}

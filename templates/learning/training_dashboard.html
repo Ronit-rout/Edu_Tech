@@ -1,0 +1,80 @@
+{% extends 'base_student.html' %}
+
+{% block title %}Training Dashboard - Raise Labs Learning{% endblock %}
+
+{% block content %}
+<header class="mb-8">
+    <span class="text-xs text-on-surface-variant uppercase tracking-wider">Professional Training Portal</span>
+    <h2 class="font-display-lg-mobile md:font-display-lg text-primary mt-1">{{ enrollment.course.title }}</h2>
+</header>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    <!-- Left: Modules & Steps -->
+    <div class="lg:col-span-8 flex flex-col gap-6">
+        <h3 class="font-headline-md text-primary mb-2">Training Levels</h3>
+        
+        <div class="space-y-4">
+            {% if modules %}
+                {% for module in modules %}
+                <div class="card-level-1 p-6 rounded-xl flex justify-between items-center relative overflow-hidden group {% if module.level > unlocked_level %}opacity-50{% endif %}">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 {% if module.level < unlocked_level %}bg-[#27AE60]{% elif module.level == unlocked_level %}bg-[#c9a900]{% else %}bg-outline-variant{% endif %}"></div>
+                    <div>
+                        <span class="text-xs text-on-surface-variant font-medium">Level {{ module.level }} • Module {{ module.order }}</span>
+                        <h4 class="font-headline-md text-primary mt-1">{{ module.title }}</h4>
+                        <p class="text-xs text-on-surface-variant mt-2">{{ module.description }}</p>
+                    </div>
+                    <div>
+                        {% if module.level <= unlocked_level %}
+                        <a href="{% url 'training_module' module_id=module.id %}" class="bg-primary-container text-white px-4 py-2 rounded font-label-md text-label-md hover:opacity-90 transition-opacity cursor-pointer">Start Module</a>
+                        {% else %}
+                        <span class="flex items-center gap-1 text-xs text-on-surface-variant font-semibold">
+                            <span class="material-symbols-outlined text-sm">lock</span> Locked
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-sm text-on-surface-variant">No training modules available for this program.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Right: Roadmap stepper & Actions -->
+    <div class="lg:col-span-4 flex flex-col gap-6">
+        <!-- Interactive actions -->
+        <div class="card-level-1 p-6 rounded-xl border-l-[3px] border-l-[#c9a900]">
+            <h3 class="font-headline-md text-primary mb-4">Final Evaluation</h3>
+            <p class="text-sm text-on-surface-variant mb-6">Complete all modules and assignments to unlock the final technical interview.</p>
+            <a href="{% url 'training_interview' %}" class="block w-full bg-[#0a1a3b] text-white py-3 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity text-center cursor-pointer">
+                Technical Interview UI
+            </a>
+        </div>
+
+        <!-- Roadmap mini tracker -->
+        <div class="card-level-1 p-6 rounded-xl">
+            <h3 class="font-headline-md text-primary mb-4">Training Roadmap</h3>
+            <div class="relative pl-6 border-l border-outline-variant space-y-4">
+                <div class="relative">
+                    <div class="absolute -left-[30px] top-0.5 w-4 h-4 rounded-full bg-[#27AE60] border-2 border-white flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[10px] text-white font-bold">check</span>
+                    </div>
+                    <span class="text-xs font-semibold text-primary">Level 1 - Foundations</span>
+                </div>
+                <div class="relative">
+                    <div class="absolute -left-[30px] top-0.5 w-4 h-4 rounded-full {% if unlocked_level >= 2 %}bg-[#27AE60]{% else %}bg-[#0a1a3b]{% endif %} border-2 border-white flex items-center justify-center">
+                        {% if unlocked_level >= 2 %}<span class="material-symbols-outlined text-[10px] text-white font-bold">check</span>{% else %}<span class="w-1.5 h-1.5 rounded-full bg-white"></span>{% endif %}
+                    </div>
+                    <span class="text-xs font-semibold {% if unlocked_level >= 2 %}text-primary{% else %}text-on-surface-variant{% endif %}">Level 2 - Advanced</span>
+                </div>
+                <div class="relative">
+                    <div class="absolute -left-[30px] top-0.5 w-4 h-4 rounded-full {% if unlocked_level >= 3 %}bg-[#27AE60]{% else %}bg-outline-variant{% endif %} border-2 border-white flex items-center justify-center">
+                        {% if unlocked_level >= 3 %}<span class="material-symbols-outlined text-[10px] text-white font-bold">check</span>{% endif %}
+                    </div>
+                    <span class="text-xs font-semibold {% if unlocked_level >= 3 %}text-primary{% else %}text-on-surface-variant{% endif %}">Level 3 - Project Workspace</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

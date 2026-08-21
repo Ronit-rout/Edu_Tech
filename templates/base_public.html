@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!-- TopNavBar (Desktop) -->
+<header class="w-full top-0 sticky z-50 bg-surface-bright/90 backdrop-blur shell-shadow hidden md:block">
+    <div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto">
+        <div class="flex items-center gap-stack-lg">
+            <a class="font-headline-md text-headline-md font-extrabold text-primary tracking-tight" href="{% url 'homepage' %}">Raise Labs Learning</a>
+            <nav class="hidden lg:flex gap-stack-lg ml-8">
+                <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors cursor-pointer active:opacity-80" href="{% url 'courses_catalog' %}">Marketplace</a>
+                {% if user.is_authenticated %}
+                <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors cursor-pointer active:opacity-80" href="{% url 'dashboard' %}">Dashboard</a>
+                <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors cursor-pointer active:opacity-80" href="{% url 'skills_wallet' %}">Wallet</a>
+                {% endif %}
+                <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors cursor-pointer active:opacity-80" href="{% url 'about_us' %}">About Us</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-stack-md">
+            {% if user.is_authenticated %}
+            <span class="font-body-md text-body-md text-primary font-medium mr-4">Hi, {{ user.username }}</span>
+            <form action="{% url 'logout' %}" method="post" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="font-label-md text-label-md text-[#ba1a1a] bg-transparent hover:bg-surface-container-high px-4 py-2 rounded-full transition-colors">Sign Out</button>
+            </form>
+            {% else %}
+            <button onclick="window.location.href='{% url 'login' %}'" class="font-label-md text-label-md text-primary-container bg-transparent hover:bg-surface-container-high px-4 py-2 rounded-full transition-colors">Sign In</button>
+            <button onclick="window.location.href='{% url 'signup' %}'" class="font-label-md text-label-md text-on-primary bg-primary-container hover:opacity-90 px-5 py-2.5 rounded-full transition-colors">Get Started</button>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="flex-grow flex flex-col w-full max-w-container-max mx-auto pb-32 animate-fade-in">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="w-full px-margin-mobile md:px-margin-desktop py-12 border-t border-outline-variant/30 bg-surface-bright hidden md:block mt-auto">
+    <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="font-headline-md text-headline-md font-bold text-primary">Raise Labs Learning</div>
+        <nav class="flex gap-8">
+            <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{% url 'about_us' %}">About</a>
+            <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{% url 'about_us' %}">Institutions</a>
+            <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{% url 'about_us' %}">Privacy</a>
+            <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{% url 'about_us' %}">Terms</a>
+        </nav>
+        <div class="font-label-sm text-label-sm text-outline">© {% now "Y" %} Raise Labs. All rights reserved.</div>
+    </div>
+</footer>
+
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest shell-shadow-top rounded-t-xl md:hidden pb-[calc(env(safe-area-inset-bottom)+8px)]">
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high" href="{% url 'courses_catalog' %}">
+        <span class="material-symbols-outlined" data-icon="explore">explore</span>
+        <span class="font-label-sm text-label-sm mt-1">Explore</span>
+    </a>
+    {% if user.is_authenticated %}
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high" href="{% url 'internship_track' %}">
+        <span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+        <span class="font-label-sm text-label-sm mt-1">Learning</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high" href="{% url 'skills_wallet' %}">
+        <span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+        <span class="font-label-sm text-label-sm mt-1">Wallet</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high" href="{% url 'profile' %}">
+        <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+        <span class="font-label-sm text-label-sm mt-1">Profile</span>
+    </a>
+    {% else %}
+    <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 transition-transform active:bg-surface-container-high" href="{% url 'login' %}">
+        <span class="material-symbols-outlined" data-icon="account_circle">login</span>
+        <span class="font-label-sm text-label-sm mt-1">Sign In</span>
+    </a>
+    {% endif %}
+</nav>
+{% endblock %}
